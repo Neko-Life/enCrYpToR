@@ -36,27 +36,27 @@
 #include "base64.h"
 
 std::string encrypt(const std::string& str, const std::string& key) {
-    const std::string t = base64_encode(str);
-    const size_t len = t.length();
+   const std::string t = base64_encode(str);
+   const size_t len = t.length();
 
-    srand(std::hash<std::string>{}(key));
+   srand(std::hash<std::string>{}(key));
 
-    std::string ret = "";
-    ret.reserve(len);
+   std::string ret = "";
+   ret.reserve(len);
 
-    std::vector<size_t> ori = {};
-    ori.reserve(len);
+   std::vector<size_t> ori = {};
+   ori.reserve(len);
 
-    for (size_t i = 0; i < len; i++) ori.push_back(i);
+   for (size_t i = 0; i < len; i++) ori.push_back(i);
 
-    auto io = ori.begin();
-    while (io != ori.end())
-    {
-        int r2 = rand() % ori.size();
-        auto it = io + r2;
-        ret += t.at(*it);
-        ori.erase(it);
-    }
+   auto io = ori.begin();
+   while (io != ori.end())
+   {
+      size_t r2 = rand() % ori.size();
+      auto it = io + r2;
+      ret += t.at(*it);
+      ori.erase(it);
+   }
 
-    return ret;
+   return ret;
 }
